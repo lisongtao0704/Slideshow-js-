@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>轮播图片</title>
+		<style type="text/css">
+			#content {
+				margin: 50px auto;
+				width: 880px;
+				position: relative;
+				overflow: hidden;
+			}
+			
+			.image {
+				width: 880px;
+				height: 495px;
+			}
+			
+			#content>div:nth-child(1) {
+				width: 4400px;
+				display: flex;
+			}
+			
+			.circle {
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background-color: rgba(0, 0, 0, .4);
+				border: 2px solid #FFF;
+				margin: 2px;
+				opacity: 0.8;
+				/*透明度*/
+				cursor: pointer;
+			}
+			
+			#content>div:nth-child(4) {
+				position: absolute;
+				top: 460px;
+				margin: 0 50%;
+			}
+			
+			#content>div:nth-child(4)>div {
+				display: flex;
+				position: relative;
+				left: -50%;
+			}
+			
+			#left {
+				width: 100px;
+				height: 150px;
+				position: absolute;
+				top: 172.5px;
+				left: 0;
+				opacity: 0.8;
+				cursor: pointer;
+			}
+			
+			#right {
+				width: 100px;
+				height: 150px;
+				position: absolute;
+				top: 172.5px;
+				right: 0;
+				opacity: 0.8;
+				cursor: pointer;
+			}
+			
+			#left:hover {
+				background-color: rgba(0, 0, 0, .4);
+			}
+			
+			#right:hover {
+				background-color: rgba(0, 0, 0, .4);
+			}
+			.image{
+				
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="content">
+			<div class="photo-frame">
+				<img src="img/v2-616d958500ebf6b943d020002dc0fb8a_r.jpg" class="image" />
+				<img src="img/v2-a4ab957dea6cbd26d084d1072cda7eca_r.jpg" class="image" />
+				<img src="img/v2-18629e2603569371f389a215c6f987b0_r.jpg" class="image" />
+				<img src="img/v2-a5f645d9909d04c8dce21ff86405b370_r.jpg" class="image" />
+				<img src="img/v2-ddf658c7eccbf63accd20cbc097078f4_r.jpg" class="image" />
+			</div>
+			<img src="img/arrow_left.png" id="left" />
+			<img src="img/arrow_right.png" id="right" /><!--放.photo-frame？会乱-->
+			<div>
+				<div>
+					<div class="circle"></div>
+					<div class="circle"></div>
+					<div class="circle"></div>
+					<div class="circle"></div>
+					<div class="circle"></div>
+				</div>
+			</div>
+
+		</div>
+		<script>
+			let num = 0;
+            document.getElementsByClassName("circle")[0].style.cssText="background-color: #FFF; border: 2px solid rgba(0,0,0,.4);";
+			setInterval(function f() {
+				let n = -880;
+				num++;
+				n = n * num;
+				if(num <= 4){
+					document.getElementsByClassName("photo-frame")[0].style.cssText = "transform: translate("+n+"px);"
+					for(let i=0;i<5;i++)
+					document.getElementsByClassName("circle")[i].style.cssText="background-color: rgba(0,0,0,.4); border: 2px solid #FFF;";
+					document.getElementsByClassName("circle")[num].style.cssText="background-color: #FFF; border: 2px solid rgba(0,0,0,.4);";
+				}
+				else {
+					num = -1;
+					f();
+				}
+
+			}, 2000)
+		</script>
+	</body>
+
+</html><br />
