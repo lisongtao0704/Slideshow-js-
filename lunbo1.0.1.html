@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>轮播图片1.0.1</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+			}
+			
+			#content {
+				margin: 50px auto;
+				width: 880px;
+				position: relative;
+				cursor: pointer;
+			}
+			
+			.image {
+				width: 880px;
+				height: 495px;
+			}
+			
+			.circle {
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background: rgba(0, 0, 0, .4);
+				margin: 2px;
+				opacity: 0.8;
+				/*透明度*/
+				border: 2px solid #fff;
+			}
+			
+			#content>div:nth-child(2) {
+				position: absolute;
+				top: 460px;
+				margin: 0 50%;
+			}
+			
+			#content>div:nth-child(2)>div {
+				display: flex;
+				position: relative;
+				left: -50%;
+			}
+			
+			.photo-frame {
+				position: relative;
+			}
+			
+			#left {
+				width: 100px;
+				height: 150px;
+				position: absolute;
+				top: 172.5px;
+				left: 0;
+				opacity: 0.7;
+			}
+			
+			#right {
+				width: 100px;
+				height: 150px;
+				position: absolute;
+				top: 172.5px;
+				right: 0;
+				opacity: 0.7;
+			}
+			
+			#left:hover {
+				background: rgba(0, 0, 0, .4);
+			}
+			
+			#right:hover {
+				background: rgba(0, 0, 0, .4);
+			}
+			
+			#bg {
+				width: 100%;
+				position: absolute;
+				top: 0;
+				min-width: 880px;
+				opacity: 0.4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<img src="img/1.jpg" id="bg" />
+			<div id="content">
+				<div class="photo-frame">
+					<img src="img/1.jpg" class="image" />
+					<img src="img/arrow_left.png" id="left" />
+					<img src="img/arrow_right.png" id="right" />
+				</div>
+
+				<div>
+					<div>
+						<div class="circle"></div>
+						<div class="circle"></div>
+						<div class="circle"></div>
+						<div class="circle"></div>
+						<div class="circle"></div>
+					</div>
+				</div>
+
+			</div>
+			<script>
+				let num = 1;
+				let _circle = document.getElementsByClassName("circle");
+				_circle[0].style.cssText = "background-color: #FFF; border: 2px solid rgba(0,0,0,.4);";
+				/*回调函数*/
+				function f1() {
+					num++;
+					if(num == _circle.length+1) {
+						num = 1;
+					}
+					f2();
+					document.getElementsByClassName("image")[0].src = "img/" + num + ".jpg";
+					document.getElementById("bg").src = "img/" + num + ".jpg";
+
+				}
+
+				function f2() {
+					for(let n = 0; n < _circle.length; n++)
+						_circle[n].style.cssText = "background-color: rgba(0,0,0,.4); border: 2px solid #FFF;"
+					_circle[num - 1].style.cssText = "background-color: #FFF; border: 2px solid rgba(0,0,0,.4);";
+				}
+				let stop_ = setInterval(f1, 2000);
+
+				document.getElementById("left").onclick = () => {
+					if(num == 1) {
+						num = _circle.length;
+						document.getElementsByClassName("image")[0].src = "img/" + num + ".jpg";
+						document.getElementById("bg").src = "img/" + num + ".jpg";
+						f2();
+					} else {
+						num--;
+						document.getElementsByClassName("image")[0].src = "img/" + num + ".jpg";
+						document.getElementById("bg").src = "img/" + num + ".jpg";
+						f2();
+					}
+				}
+				document.getElementById("right").onclick = () => {
+
+					if(num == _circle.length) {
+						num = 1;
+						document.getElementsByClassName("image")[0].src = "img/" + num + ".jpg";
+						document.getElementById("bg").src = "img/" + num + ".jpg";
+						f2();
+					} else {
+						num++;
+						document.getElementsByClassName("image")[0].src = "img/" + num + ".jpg";
+						document.getElementById("bg").src = "img/" + num + ".jpg";
+						f2();
+					}
+				}
+				for(let i = 0; i < _circle.length; i++) {
+					_circle[i].onclick = () => {
+						for(let n = 0; n < _circle.length; n++)
+							_circle[n].style.cssText = "background-color: rgba(0,0,0,.4); border: 2px solid #FFF;"
+						num = i + 1;
+						document.getElementsByClassName("image")[0].src = "img/" + num + ".jpg";
+						document.getElementById("bg").src = "img/" + num + ".jpg";
+						_circle[i].style.cssText = "background-color: #FFF; border: 2px solid rgba(0,0,0,.4);"
+					}
+				}
+				document.getElementById("content").onmouseover = () => clearInterval(stop_);
+				document.getElementById("content").onmouseout = () => stop_ = setInterval(f1, 2000);
+			</script>
+		</div>
+
+	</body>
+
+</html>
